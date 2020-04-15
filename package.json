@@ -22,11 +22,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/iooxa/ink.git"
+    "url": "https://github.com/iooxa/runtime.git"
   },
   "devDependencies": {
     "typescript": "^3.8.3",
-    "@types/jest": "^25.1.4",
     "jest": "^25.2.4",
     "ts-jest": "^25.3.0",
     "eslint": "^6.8.0",
@@ -36,17 +35,18 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.1",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@types/jest": "^25.1.4",
+    "@types/underscore": "^1.9.4",
     "@types/uuid": "^7.0.2"
   },
   "dependencies": {
-    "@types/underscore": "^1.9.4",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "underscore": "^1.10.2",
     "uuid": "^7.0.3"
   },
   "bugs": {
-    "url": "https://github.com/iooxa/ink/issues"
+    "url": "https://github.com/iooxa/runtime/issues"
   },
   "homepage": "https://components.ink",
   "sideEffects": false
