@@ -1,4 +1,4 @@
-# Runtime
+# @iooxa/runtime
 
 [![Runtime on npm](https://img.shields.io/npm/v/@iooxa/runtime.svg)](https://www.npmjs.com/package/@iooxa/runtime)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ink-components/ink-components/blob/master/LICENSE)
