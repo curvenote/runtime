@@ -6,7 +6,7 @@ import { VariableTypes, UpdateVariableOptions, Variable } from './variables/type
 export interface Shortcut<T> {
   readonly id: string;
   readonly scope: string | undefined;
-  readonly name: string | undefined;
+  readonly name: string | null | undefined;
   readonly state: T;
   readonly component: Component | undefined;
   remove: () => void;

@@ -32,19 +32,20 @@ store.dispatch(specActions.createSpec(
 
 describe('Components reducer', () => {
   it('should create component', () => {
-    const badName = actions.createComponent('notRange', '', {}, {});
-    expect(() => store.dispatch(badName as any)).toThrow();
-    const notRange = actions.createComponent('notRange', 'a', {}, {});
+    const notRange = actions.createComponent('notRange', {}, {});
     expect(() => store.dispatch(notRange as any)).toThrow();
-    const badRange = actions.createComponent('range', 'a', { blah: { value: 2 } }, {});
+    const badRange = actions.createComponent('range', { blah: { value: 2 } }, {});
     expect(() => store.dispatch(badRange as any)).toThrow();
     // The null max should likely throw?
     // TODO: The scope should be set rather than the var name.
-    const range = store.dispatch(actions.createComponent('range', 'hi', { min: { value: 2 }, max: { value: null } }, {}) as any) as ComponentShortcut<Record<keyof typeof rangeProps, number>>;
+    const range = store.dispatch(actions.createComponent('range', { min: { value: 2 }, max: { value: null } }) as any) as ComponentShortcut<Record<keyof typeof rangeProps, number>>;
 
     expect(range.scope).toBe(DEFAULT_SCOPE);
-    expect(range.name).toBe('hi');
+    expect(range.name).toBeNull();
     expect(range.state?.min).toBe(2);
     expect(range.state?.max).toBe(100);
+
+    range.set({}, {}, { name: 'hi' });
+    expect(range.name).toBe('hi');
   });
 });

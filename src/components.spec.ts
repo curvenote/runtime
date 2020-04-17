@@ -35,9 +35,10 @@ describe('integration', () => {
     const max = store.dispatch(actions.createVariable('scope.max', 9));
     const otherMax = store.dispatch(actions.createVariable('scope.max2', 8));
     const range = store.dispatch(actions.createComponent(
-      'range', 'scope.myRange',
+      'range',
       { value: { func: 'x' }, min: { value: 1 }, max },
       { change: { func: '{x: value}' } },
+      { scope: 'scope' },
     ));
 
     expect(range.component?.properties.value.func).toBe('x');
@@ -98,12 +99,13 @@ describe('integration', () => {
   it('should work with transforms', () => {
     const x = store.dispatch(actions.createVariable('test2.x', 3));
     const range = store.dispatch(actions.createComponent(
-      'range', 'test2.myRange',
+      'range',
       {
         value: { func: 'x' },
         transform: { func: 'value == 0 ? "free" : value' },
       },
       { change: { func: '{x: value}' } },
+      { scope: 'test2' },
     ));
     expect(range.state?.transform).toBe(x.get());
     x.set(0);

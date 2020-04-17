@@ -36,7 +36,7 @@ const componentsReducer = (
     case DEFINE_COMPONENT: {
       const { component: newComponent, spec } = action.payload;
       const { scope, name } = newComponent;
-      if (!testScopeAndName(scope, name)) throw new Error('Scope or name has bad characters');
+      if (!testScopeAndName(scope, name, true)) throw new Error('Scope or name has bad characters');
       const component = {
         ...newComponent,
         properties: includeCurrentValueInProps(newComponent.properties, spec),
