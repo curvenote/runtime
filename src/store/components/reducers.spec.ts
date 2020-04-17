@@ -5,8 +5,6 @@ import reducer from './reducers';
 import * as specActions from '../specs/actions';
 import * as actions from './actions';
 import { PropTypes } from '../variables/types';
-import { getSpec } from '../specs/selectors';
-import { Spec } from '../specs/types';
 import { DEFAULT_SCOPE } from '../../constants';
 import { ComponentShortcut } from '../shortcuts';
 
@@ -26,22 +24,13 @@ const rangeEvents = {
   change: { args: ['value'] },
 };
 
+store.dispatch(specActions.createSpec(
+  'range',
+  rangeProps,
+  rangeEvents,
+) as any);
+
 describe('Components reducer', () => {
-  it('should create component specs', () => {
-    const range = store.dispatch(specActions.createSpec(
-      'range',
-      rangeProps,
-      rangeEvents,
-    ) as any) as Spec;
-
-    const rangeState = getSpec(store.getState(), 'range');
-    expect(rangeState).toBeTruthy();
-    expect(range.properties.min.name).toBe('min');
-    expect(range.properties.min.has.func).toBe(true);
-    expect(range.properties.min.default).toBe(0);
-    expect(range.properties.something).toBeUndefined();
-  });
-
   it('should create component', () => {
     const badName = actions.createComponent('notRange', '', {}, {});
     expect(() => store.dispatch(badName as any)).toThrow();

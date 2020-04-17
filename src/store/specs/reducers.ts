@@ -12,6 +12,7 @@ const componentsReducer = (
   switch (action.type) {
     case DEFINE_SPEC: {
       const spec = action.payload;
+      if (state[spec.name] != null) throw new Error('Component spec is already defined.');
       return {
         ...state,
         [spec.name]: { ...spec },

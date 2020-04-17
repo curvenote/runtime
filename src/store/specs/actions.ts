@@ -4,6 +4,7 @@ import {
   DefineSpecEvent,
   DEFINE_SPEC,
   Spec,
+  DefineSpec,
 } from './types';
 import { AppThunk } from '../types';
 import { getSpec } from './selectors';
@@ -18,17 +19,21 @@ export function defineSpec(spec: Spec): SpecActionTypes {
 }
 
 export function createSpec(
-  name: string,
-  properties: Record<string, DefineSpecProperty>,
-  events: Record<string, DefineSpecEvent>,
+  name: string | DefineSpec,
+  properties?: Record<string, DefineSpecProperty>,
+  events?: Record<string, DefineSpecEvent>,
   description: string = '',
 ): AppThunk<Spec> {
   return (dispatch, getState) => {
-    if (getSpec(getState(), name) != null) throw new Error('Component spec is already defined.');
-    const spec = getSpecFromDefinition({
-      name, properties, events, description,
-    });
-    dispatch(defineSpec(spec));
-    return getSpec(getState(), name) as Spec;
+    if (typeof name === 'object') {
+      const spec = getSpecFromDefinition(name);
+      dispatch(defineSpec(spec));
+    } else {
+      const spec = getSpecFromDefinition({
+        name, properties, events, description,
+      } as DefineSpec);
+      dispatch(defineSpec(spec));
+    }
+    return getSpec(getState(), typeof name === 'object' ? name.name : name) as Spec;
   };
 }
