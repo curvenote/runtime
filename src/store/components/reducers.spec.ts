@@ -6,7 +6,7 @@ import * as specActions from '../specs/actions';
 import * as actions from './actions';
 import { PropTypes } from '../variables/types';
 import { getSpec } from '../specs/selectors';
-import { ComponentSpec } from '../specs/types';
+import { Spec } from '../specs/types';
 import { DEFAULT_SCOPE } from '../../constants';
 import { ComponentShortcut } from '../shortcuts';
 
@@ -28,11 +28,11 @@ const rangeEvents = {
 
 describe('Components reducer', () => {
   it('should create component specs', () => {
-    const range = store.dispatch(specActions.createComponentSpec(
+    const range = store.dispatch(specActions.createSpec(
       'range',
       rangeProps,
       rangeEvents,
-    ) as any) as ComponentSpec;
+    ) as any) as Spec;
 
     const rangeState = getSpec(store.getState(), 'range');
     expect(rangeState).toBeTruthy();

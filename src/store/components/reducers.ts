@@ -4,7 +4,7 @@ import {
   DefineComponentProperty, ComponentProperty,
   DEFINE_COMPONENT, REMOVE_COMPONENT,
 } from './types';
-import { ComponentSpec } from '../specs/types';
+import { Spec } from '../specs/types';
 import { RETURN_RESULTS } from '../comms/types';
 import { forEachObject, compareEval } from '../utils';
 import { includeCurrentValue, testScopeAndName, unpackCurrent } from '../variables/utils';
@@ -14,7 +14,7 @@ const initialState: ComponentsState = {};
 
 const includeCurrentValueInProps = (
   props: Record<string, DefineComponentProperty>,
-  spec: ComponentSpec,
+  spec: Spec,
 ): Record<string, ComponentProperty> => (
   forEachObject(spec.properties, ([propName, propSpec]) => {
     const prop = {

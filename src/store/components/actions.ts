@@ -12,7 +12,7 @@ import {
   UpdateComponentOptionDefaults,
   PartialProps,
 } from './types';
-import { ComponentSpec } from '../specs/types';
+import { Spec } from '../specs/types';
 import { AppThunk, State, Dispatch } from '../types';
 import { getComponent, getComponentState } from './selectors';
 import { getSpec } from '../specs/selectors';
@@ -21,7 +21,7 @@ import { VariableTypes } from '../variables/types';
 import { ComponentShortcut, VariableShortcut } from '../shortcuts';
 
 export function defineComponent(
-  component: DefineComponent, spec: ComponentSpec,
+  component: DefineComponent, spec: Spec,
 ): ComponentActionTypes {
   return {
     type: DEFINE_COMPONENT,
@@ -66,7 +66,7 @@ const createComponentOptionDefaults = {
 };
 
 function processPropertiesAndEvents<T extends Record<string, VariableTypes>>(
-  spec: ComponentSpec,
+  spec: Spec,
   scope: string,
   properties: {
     [P in keyof T]: PartialProps<T[P]> | VariableShortcut<T[P]>
@@ -145,7 +145,7 @@ export function updateComponent<T extends Record<string, VariableTypes>>(
   return (dispatch, getState) => {
     const component = getComponent(getState(), id);
     const spec = getSpec(getState(), component?.spec as string);
-    if (component == null || spec == null) throw new Error('Component or ComponentSpec is not defined.');
+    if (component == null || spec == null) throw new Error('Component or Spec is not defined.');
     const { description, scope, name } = {
       ...component,
       ...options,

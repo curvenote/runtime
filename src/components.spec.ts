@@ -22,7 +22,7 @@ const store = createStore(
   ),
 ) as types.Store;
 
-store.dispatch(actions.createComponentSpec(
+store.dispatch(actions.createSpec(
   'range',
   rangeProps,
   rangeEvents,

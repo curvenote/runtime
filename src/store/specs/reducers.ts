@@ -11,10 +11,10 @@ const componentsReducer = (
 ): SpecsState => {
   switch (action.type) {
     case DEFINE_SPEC: {
-      const componentSpec = action.payload;
+      const spec = action.payload;
       return {
         ...state,
-        [componentSpec.name]: { ...componentSpec },
+        [spec.name]: { ...spec },
       };
     }
     default:

@@ -1,11 +1,11 @@
 import {
-  DefineComponentSpec, ComponentSpec, ComponentPropertySpec, ComponentEventSpec,
+  DefineSpec, Spec, SpecProperty, SpecEvent,
 } from './types';
 import { forEachObject } from '../utils';
 
 // eslint-disable-next-line import/prefer-default-export
-export function getSpecFromDefinition(specDefinition: DefineComponentSpec): ComponentSpec {
-  const spec: ComponentSpec = {
+export function getSpecFromDefinition(specDefinition: DefineSpec): Spec {
+  const spec: Spec = {
     description: 'No description',
     ...specDefinition,
     properties: forEachObject(
@@ -19,7 +19,7 @@ export function getSpecFromDefinition(specDefinition: DefineComponentSpec): Comp
           description: prop.description ?? '',
           args: prop.args ?? [],
           has: prop.has ?? { value: true, func: true },
-        } as ComponentPropertySpec,
+        } as SpecProperty,
       ],
     ),
     events: forEachObject(
@@ -29,7 +29,7 @@ export function getSpecFromDefinition(specDefinition: DefineComponentSpec): Comp
         {
           name,
           args: evt.args ?? [],
-        } as ComponentEventSpec],
+        } as SpecEvent],
     ),
   };
   return spec;

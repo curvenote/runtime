@@ -2,7 +2,7 @@ import { VariableTypes, PropTypes } from '../variables/types';
 
 export const DEFINE_SPEC = 'DEFINE_SPEC';
 
-export interface ComponentPropertySpec {
+export interface SpecProperty {
   name: string;
   description?: string;
   type: PropTypes;
@@ -14,38 +14,40 @@ export interface ComponentPropertySpec {
   };
 }
 
-export interface ComponentEventSpec {
+export interface SpecEvent {
   name: string;
   args: string[];
 }
 
 // type, default are required, name not included, all other optional
-export type DefineComponentPropertySpec = Partial<Omit<ComponentPropertySpec, 'name' | 'type' | 'default'>> &
-Required<Pick<ComponentPropertySpec, 'type' | 'default'>>;
+export type DefineSpecProperty = (
+  Partial<Omit<SpecProperty, 'name' | 'type' | 'default'>> &
+  Required<Pick<SpecProperty, 'type' | 'default'>>
+);
 // name not included
-export type DefineComponentEventSpec = Omit<ComponentEventSpec, 'name'>;
+export type DefineSpecEvent = Omit<SpecEvent, 'name'>;
 
-export interface ComponentSpec{
+export interface DefineSpec {
   name: string;
-  description: string;
-  properties: Record<string, ComponentPropertySpec>;
-  events: Record<string, ComponentEventSpec>;
+  properties: Record<string, DefineSpecProperty>;
+  events: Record<string, DefineSpecEvent>;
+  description?: string;
 }
 
-export type SpecsState = Record<string, ComponentSpec>;
+export interface Spec{
+  name: string;
+  description: string;
+  properties: Record<string, SpecProperty>;
+  events: Record<string, SpecEvent>;
+}
+
+export type SpecsState = Record<string, Spec>;
 
 export interface CreateSpecAction {
   type: typeof DEFINE_SPEC;
-  payload: ComponentSpec;
+  payload: Spec;
 }
 
 export type SpecActionTypes = (
   CreateSpecAction
 );
-
-export interface DefineComponentSpec{
-  name: string;
-  properties: Record<string, DefineComponentPropertySpec>;
-  events: Record<string, DefineComponentEventSpec>;
-  description?: string;
-}

@@ -2,7 +2,7 @@ import {
   VariableTypes, CurrentValue,
 } from '../variables/types';
 import { CommunicationActionTypes } from '../comms/types';
-import { ComponentSpec } from '../specs/types';
+import { Spec } from '../specs/types';
 
 export const DEFINE_COMPONENT = 'DEFINE_COMPONENT';
 export const REMOVE_COMPONENT = 'REMOVE_COMPONENT';
@@ -47,7 +47,7 @@ export interface ComponentEventAction {
 export interface CreateComponentAction {
   type: typeof DEFINE_COMPONENT;
   payload: {
-    spec: ComponentSpec;
+    spec: Spec;
     component: DefineComponent;
   };
 }
