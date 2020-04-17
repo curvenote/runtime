@@ -8,6 +8,7 @@ const rangeProps = {
   value: { type: PropTypes.number, default: 0 },
   min: { type: PropTypes.number, default: 0 },
   max: { type: PropTypes.number, default: 100 },
+  transform: { type: PropTypes.number, default: 100, args: ['value'] },
 };
 const rangeEvents = {
   change: { args: ['value'] },
@@ -92,5 +93,20 @@ describe('integration', () => {
     range.remove();
     expect(x.get()).toBe(4);
     expect(range.state).toEqual({});
+  });
+
+  it('should work with transforms', () => {
+    const x = store.dispatch(actions.createVariable('test2.x', 3));
+    const range = store.dispatch(actions.createComponent(
+      'range', 'test2.myRange',
+      {
+        value: { func: 'x' },
+        transform: { func: 'value == 0 ? "free" : value' },
+      },
+      { change: { func: '{x: value}' } },
+    ));
+    expect(range.state?.transform).toBe(x.get());
+    x.set(0);
+    expect(range.state?.transform).toBe('free');
   });
 });

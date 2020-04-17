@@ -32,5 +32,12 @@ export function getSpecFromDefinition(specDefinition: DefineSpec): Spec {
         } as SpecEvent],
     ),
   };
+  Object.entries(spec.properties).forEach(([name, prop]) => {
+    if (prop.args.length === 0) return;
+    prop.args.forEach((arg) => {
+      if (arg in spec.properties) return;
+      throw new Error(`Property spec: "${name}" has unrecognized argument: "${arg}". It must be a property of the spec.`);
+    });
+  });
   return spec;
 }
