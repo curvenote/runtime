@@ -4,7 +4,8 @@
     "esModuleInterop": true,
     "target": "es6",
     "lib": [
-      "es2019"
+      "es2019",
+      "dom"
     ],
     "noImplicitAny": true,
     "strict": true,
