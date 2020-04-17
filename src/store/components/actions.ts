@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { DEFAULT_SCOPE } from '../../constants';
 import { forEachObject } from '../utils';
 import {
   ComponentActionTypes,
@@ -16,7 +17,6 @@ import { Spec } from '../specs/types';
 import { AppThunk, State, Dispatch } from '../types';
 import { getComponent, getComponentState } from './selectors';
 import { getSpec } from '../specs/selectors';
-import { getScopeAndName } from '../variables/utils';
 import { VariableTypes } from '../variables/types';
 import { ComponentShortcut, VariableShortcut } from '../shortcuts';
 
@@ -62,6 +62,8 @@ function componentShortcut<T extends Record<string, VariableTypes>>(
 }
 
 const createComponentOptionDefaults = {
+  scope: DEFAULT_SCOPE,
+  name: null,
   description: '',
 };
 
@@ -110,19 +112,17 @@ function processPropertiesAndEvents<T extends Record<string, VariableTypes>>(
 
 export function createComponent<T extends Record<string, VariableTypes>>(
   specName: string,
-  componentNameAndScope: string,
   properties: {
     [P in keyof T]: PartialProps<T[P]> | VariableShortcut<T[P]>
   },
   events?: Record<string, Omit<ComponentEvent, 'name'>>,
-  options?: CreateComponentOptionDefaults,
+  options?: Partial<CreateComponentOptionDefaults>,
 ): AppThunk<ComponentShortcut<T>> {
   return (dispatch, getState) => {
     const spec = getSpec(getState(), specName);
     if (spec == null) throw new Error('Component spec is not defined.');
     const id = uuid();
-    const { scope, name } = getScopeAndName(componentNameAndScope);
-    const { description } = {
+    const { scope, name, description } = {
       ...createComponentOptionDefaults,
       ...options,
     };

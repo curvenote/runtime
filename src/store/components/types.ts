@@ -25,7 +25,7 @@ export interface Component {
   spec: string;
   id: string;
   scope: string;
-  name: string;
+  name: string | null;
   description: string;
   properties: Record<string, ComponentProperty>;
   events: Record<string, ComponentEvent>;
@@ -65,11 +65,13 @@ export type ComponentActionTypes = (
 );
 
 export interface CreateComponentOptionDefaults{
+  scope: string;
+  name: string | null;
   description: string;
 }
 export interface UpdateComponentOptionDefaults extends CreateComponentOptionDefaults {
   scope: string;
-  name: string;
+  name: string | null;
 }
 
 export type PartialProps<K = VariableTypes> = Partial<Omit<DefineComponentProperty<K>, 'name'>>;

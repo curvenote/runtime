@@ -50,8 +50,9 @@ export function getScopeAndName(
   return { scope: split[0], name: split[1] };
 }
 
-export function testScopeAndName(scope: string, name: string): boolean {
+export function testScopeAndName(scope: string, name: string | null, allowNull = false): boolean {
   // Simple variable names only ....
   const regex = /^[a-zA-Z_$][0-9a-zA-Z_$]*$/;
-  return regex.test(scope) && regex.test(name);
+  const testName = allowNull ? name == null || regex.test(name) : name != null && regex.test(name);
+  return regex.test(scope) && testName;
 }
