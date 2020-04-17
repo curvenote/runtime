@@ -15,7 +15,7 @@ export function getExecutionState(
     };
   });
   // Get the *named* components
-  Object.entries(state.ink.components.components).forEach(([id, { scope, name }]) => {
+  Object.entries(state.ink.components).forEach(([id, { scope, name }]) => {
     if (!name) return;
     executionState[scope] = {
       ...executionState[scope],

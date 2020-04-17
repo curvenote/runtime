@@ -1,10 +1,10 @@
 import { DEFAULT_FORMAT } from '../../constants';
 import { PropTypes } from '../types';
-import { getComponentSpecFromDefinition } from '../components/utils';
+import { getSpecFromDefinition } from './utils';
 
 const valueOnly = { value: true, func: false };
 
-const VarSpec = getComponentSpecFromDefinition({
+const VarSpec = getSpecFromDefinition({
   name: 'var',
   description: 'Ink variable declaration',
   properties: {

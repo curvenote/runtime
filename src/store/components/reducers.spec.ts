@@ -1,15 +1,17 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import specReducer from '../specs/reducers';
 import reducer from './reducers';
+import * as specActions from '../specs/actions';
 import * as actions from './actions';
 import { PropTypes } from '../variables/types';
-import { getComponentSpec } from './selectors';
-import { ComponentSpec } from './types';
+import { getSpec } from '../specs/selectors';
+import { ComponentSpec } from '../specs/types';
 import { DEFAULT_SCOPE } from '../../constants';
 import { ComponentShortcut } from '../shortcuts';
 
 const store = createStore(
-  combineReducers({ ink: combineReducers({ components: reducer }) }),
+  combineReducers({ ink: combineReducers({ components: reducer, specs: specReducer }) }),
   applyMiddleware(
     thunkMiddleware,
   ),
@@ -26,13 +28,13 @@ const rangeEvents = {
 
 describe('Components reducer', () => {
   it('should create component specs', () => {
-    const range = store.dispatch(actions.createComponentSpec(
+    const range = store.dispatch(specActions.createComponentSpec(
       'range',
       rangeProps,
       rangeEvents,
     ) as any) as ComponentSpec;
 
-    const rangeState = getComponentSpec(store.getState(), 'range');
+    const rangeState = getSpec(store.getState(), 'range');
     expect(rangeState).toBeTruthy();
     expect(range.properties.min.name).toBe('min');
     expect(range.properties.min.has.func).toBe(true);

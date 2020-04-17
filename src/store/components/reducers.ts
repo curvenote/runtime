@@ -1,21 +1,16 @@
 import {
   ComponentsState,
   ComponentActionTypes,
-  DefineComponentProperty, ComponentSpec, ComponentProperty,
-  DEFINE_COMPONENT_SPEC, DEFINE_COMPONENT, REMOVE_COMPONENT,
+  DefineComponentProperty, ComponentProperty,
+  DEFINE_COMPONENT, REMOVE_COMPONENT,
 } from './types';
+import { ComponentSpec } from '../specs/types';
 import { RETURN_RESULTS } from '../comms/types';
 import { forEachObject, compareEval } from '../utils';
 import { includeCurrentValue, testScopeAndName, unpackCurrent } from '../variables/utils';
 import { compareComponentDefine } from './utils';
-import InkVarSpec from '../variables/varSpec';
 
-const initialState: ComponentsState = {
-  specs: {
-    var: InkVarSpec,
-  },
-  components: {},
-};
+const initialState: ComponentsState = {};
 
 const includeCurrentValueInProps = (
   props: Record<string, DefineComponentProperty>,
@@ -38,64 +33,42 @@ const componentsReducer = (
   action: ComponentActionTypes,
 ): ComponentsState => {
   switch (action.type) {
-    case DEFINE_COMPONENT_SPEC: {
-      const componentSpec = action.payload;
-      return {
-        ...state,
-        specs: {
-          ...state?.specs,
-          [componentSpec.name]: { ...componentSpec },
-        },
-      };
-    }
     case DEFINE_COMPONENT: {
-      const newComponent = action.payload;
+      const { component: newComponent, spec } = action.payload;
       const { scope, name } = newComponent;
       if (!testScopeAndName(scope, name)) throw new Error('Scope or name has bad characters');
-      const spec = state.specs[newComponent.spec];
       const component = {
         ...newComponent,
         properties: includeCurrentValueInProps(newComponent.properties, spec),
       };
-      const prev = state.components[component.id];
+      const prev = state[component.id];
       if (compareComponentDefine(component, prev)) return state;
       return {
         ...state,
-        components: {
-          ...state?.components,
-          [component.id]: component,
-        },
+        [component.id]: component,
       };
     }
     case REMOVE_COMPONENT: {
       const { id } = action.payload;
-      if (state.components[id] == null) return state;
-      const newState = {
-        ...state,
-        components: { ...state.components },
-      };
-      delete newState.components[id];
+      if (state[id] == null) return state;
+      const newState = { ...state };
+      delete newState[id];
       return newState;
     }
     case RETURN_RESULTS: {
-      const newState = {
-        ...state,
-        components: {
-          ...state.components,
-        },
-      };
+      const newState = { ...state };
       const oneChange = { current: false };
       Object.entries(action.payload.results.components).forEach(([id, properties]) => {
-        if (newState.components[id] == null) return;
+        if (newState[id] == null) return;
         Object.entries(properties).forEach(([propName, value]) => {
-          if (newState.components[id].properties[propName] == null) return;
-          const prev = newState.components[id].properties[propName];
+          if (newState[id].properties[propName] == null) return;
+          const prev = newState[id].properties[propName];
           const next = unpackCurrent(prev, value);
           if (compareEval(prev, next)) return;
-          newState.components[id] = {
-            ...newState.components[id],
+          newState[id] = {
+            ...newState[id],
             properties: {
-              ...newState.components[id].properties,
+              ...newState[id].properties,
               [propName]: next,
             },
           };

@@ -25,7 +25,7 @@ function subscribe(id: string | null, listener: () => void): Unsubscribe {
   return () => delete subscriptions[key];
 }
 
-let currentState: State['ink'];
+let currentState: Pick<State['ink'], 'components' | 'variables'>;
 function notify(store: Store) {
   const previousState = currentState;
   const inkState = store.getState().ink;
@@ -40,8 +40,8 @@ function notify(store: Store) {
       listener();
       return;
     }
-    const prev = previousState.variables[id] ?? previousState.components.components[id];
-    const next = currentState.variables[id] ?? currentState.components.components[id];
+    const prev = previousState.variables[id] ?? previousState.components[id];
+    const next = currentState.variables[id] ?? currentState.components[id];
     if (prev === next) return;
     listener();
   });
