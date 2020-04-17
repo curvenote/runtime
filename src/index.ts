@@ -1,7 +1,7 @@
 import * as store from './store';
 import * as utils from './utils';
 
-import InkVarSpec from './store/variables/varSpec';
+import InkVarSpec from './store/specs/varSpec';
 import provider, { setup } from './provider';
 
 export * from './store';

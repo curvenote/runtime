@@ -8,15 +8,18 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { VariablesState, VariablesActionTypes } from './variables/types';
 import { ComponentsState, ComponentActionTypes } from './components/types';
+import { SpecsState, SpecActionTypes } from './specs/types';
 import { CommunicationActionTypes } from './comms/types';
 
 export * from './variables/types';
+export * from './specs/types';
 export * from './components/types';
 export * from './comms/types';
 export * from './shortcuts';
 
 export interface State {
   ink: {
+    specs: SpecsState;
     variables: VariablesState;
     components: ComponentsState;
   }
@@ -25,6 +28,7 @@ export interface State {
 export type Actions = (
   VariablesActionTypes |
   ComponentActionTypes |
+  SpecActionTypes |
   CommunicationActionTypes
 );
 

@@ -120,7 +120,7 @@ export const SliderSpec = {
 };
 
 // Register this component spec
-store.dispatch(actions.createComponentSpec(SliderSpec));
+store.dispatch(actions.createSpec(SliderSpec));
 ```
 
 The slider has a `min`, `max`, `step` and a `value`, when a user drags the slider, it creates a change event function and handler that has a single input to a function called "value" (which is not necessarily related to the `value` property 😕, more on that later.)
