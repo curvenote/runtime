@@ -10,6 +10,7 @@ import { ExecutionState } from './types';
 import { getScopeAndName } from '../variables/utils';
 import { getVariableByName } from '../variables/selectors';
 import serialize from './serialize';
+import { getSpec } from '../specs/selectors';
 
 export function dangerouslyEvaluateVariable(
   scopeName: string,
@@ -124,12 +125,18 @@ export function dangerouslyEvaluateState(event?: Event): AppThunk<Results> {
     Object.entries(getState().ink.components)
       .forEach(([id, component]) => {
         const { scope, name } = component;
+        const spec = getSpec(getState(), component.spec);
         results.components[id] = {};
         Object.entries(component.properties)
           // only the derived properties
           .filter(([, prop]) => prop.derived)
           .forEach(([propName, prop]) => {
-            const result = dangerouslyEvaluateVariable(scope, prop.func, executionState);
+            // Add any values defined on the spec
+            const args = spec?.properties[propName].args ?? [];
+            const values = args.map((arg) => results.components[id]?.[arg]?.value);
+            const result = dangerouslyEvaluateVariable(
+              scope, prop.func, executionState, args, values,
+            );
             results.components[id][propName] = result;
             if (result.error) return;
             if (name) {
