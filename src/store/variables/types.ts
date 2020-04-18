@@ -7,9 +7,11 @@ export enum PropTypes{
   string = 'String',
   number = 'Number',
   boolean = 'Boolean',
+  array = 'Array',
+  object = 'Object',
 }
 
-export type VariableTypes = string | number | boolean | null;
+export type VariableTypes = string | number | boolean | object | null;
 
 export interface DefineVariable{
   id: string;

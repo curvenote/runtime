@@ -12,6 +12,30 @@ import { getVariableByName } from '../variables/selectors';
 import serialize from './serialize';
 import { getSpec } from '../specs/selectors';
 
+export function getEvaluationFunction(
+  scopeName: string,
+  funcString: string,
+  executionState: Record<string, Record<string, any>>,
+  argNames: string[] = [],
+) {
+  const currentKeys = Object.keys(executionState[scopeName] ?? {});
+  const extractScope = currentKeys.length > 0
+    ? `
+      const { ${currentKeys.join(', ')} } = $variables[$scope];`
+    : '';
+
+  const evalString = `
+      "use strict";${extractScope}
+      return function (${argNames.join(', ')}){
+        "use strict";
+        return ( ${funcString} );
+      };
+    `;
+  // eslint-disable-next-line no-new-func
+  const func = Function('$variables', '$scope', evalString);
+  return func;
+}
+
 export function dangerouslyEvaluateVariable(
   scopeName: string,
   funcString: string,
@@ -19,23 +43,9 @@ export function dangerouslyEvaluateVariable(
   argNames: string[] = [],
   argValues: VariableTypes[] = [],
 ): ValueOrError {
-  const currentKeys = Object.keys(executionState[scopeName]);
   let derived;
   try {
-    const extractScope = currentKeys.length > 0
-      ? `
-      const { ${currentKeys.join(', ')} } = $variables[$scope];`
-      : '';
-
-    const evalString = `
-      "use strict";${extractScope}
-      return function (${argNames.join(', ')}){
-        "use strict";
-        return ( ${funcString} );
-      };
-    `;
-    // eslint-disable-next-line no-new-func
-    const func = Function('$variables', '$scope', evalString);
+    const func = getEvaluationFunction(scopeName, funcString, executionState, argNames);
     // TODO: could potentially clone the executionState?
     derived = func(executionState, scopeName)(...argValues);
   } catch (error) {

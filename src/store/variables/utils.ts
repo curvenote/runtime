@@ -13,6 +13,14 @@ export function convertValue(value: VariableTypes, type: PropTypes): VariableTyp
       return Number(value);
     case PropTypes.string:
       return value;
+    case PropTypes.array:
+    case PropTypes.object:
+      if (typeof value !== 'string') return value;
+      try {
+        return JSON.parse(value as string);
+      } catch (error) {
+        return value;
+      }
     default:
       return value;
   }
