@@ -1,6 +1,6 @@
 {
   "name": "@iooxa/runtime",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Runtime for ink-components, evaluate a reactive state for components.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -50,6 +50,6 @@
   "bugs": {
     "url": "https://github.com/iooxa/runtime/issues"
   },
-  "homepage": "https://components.ink",
+  "homepage": "https://iooxa.dev",
   "sideEffects": false
 }
