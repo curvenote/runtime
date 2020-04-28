@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import ink, { types, actions } from '.';
+import runtime, { types, actions } from '.';
 import reducer from './store/reducers';
 import { PropTypes } from './store/types';
 
@@ -18,8 +18,8 @@ const store = createStore(
   combineReducers({ runtime: reducer }),
   applyMiddleware(
     thunkMiddleware,
-    ink.triggerEvaluate,
-    ink.dangerousEvaluatation,
+    runtime.triggerEvaluate,
+    runtime.dangerousEvaluatation,
   ),
 ) as types.Store;
 
