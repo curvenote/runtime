@@ -1,4 +1,5 @@
-import { isEqual } from 'underscore';
+import isEqual from 'lodash.isequal';
+
 import { Component } from './types';
 import { compareDefine as compareProperty } from '../utils';
 

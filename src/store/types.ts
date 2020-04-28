@@ -18,7 +18,7 @@ export * from './comms/types';
 export * from './shortcuts';
 
 export interface State {
-  ink: {
+  runtime: {
     specs: SpecsState;
     variables: VariablesState;
     components: ComponentsState;

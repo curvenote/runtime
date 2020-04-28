@@ -4,8 +4,8 @@ export const DEFINE_VARIABLE = 'DEFINE_VARIABLE';
 export const REMOVE_VARIABLE = 'REMOVE_VARIABLE';
 
 export enum PropTypes{
-  string = 'String',
   number = 'Number',
+  string = 'String',
   boolean = 'Boolean',
   array = 'Array',
   object = 'Object',

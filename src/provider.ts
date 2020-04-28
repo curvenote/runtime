@@ -25,11 +25,11 @@ function subscribe(id: string | null, listener: () => void): Unsubscribe {
   return () => delete subscriptions[key];
 }
 
-let currentState: Pick<State['ink'], 'components' | 'variables'>;
+let currentState: Pick<State['runtime'], 'components' | 'variables'>;
 function notify(store: Store) {
   const previousState = currentState;
-  const inkState = store.getState().ink;
-  currentState = { variables: inkState.variables, components: inkState.components };
+  const rState = store.getState().runtime;
+  currentState = { variables: rState.variables, components: rState.components };
   if (
     previousState.variables === currentState.variables
     && previousState.components === currentState.components
@@ -49,8 +49,8 @@ function notify(store: Store) {
 
 export function setup(store: Store) {
   storeRef.current = store;
-  const inkState = store.getState().ink;
-  currentState = { variables: inkState.variables, components: inkState.components };
+  const rState = store.getState().runtime;
+  currentState = { variables: rState.variables, components: rState.components };
   store.subscribe(() => notify(store));
 }
 

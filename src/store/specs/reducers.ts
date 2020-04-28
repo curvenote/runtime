@@ -1,8 +1,8 @@
 import { SpecsState, SpecActionTypes, DEFINE_SPEC } from './types';
-import InkVarSpec from './varSpec';
+import VariableSpec from './variableSpec';
 
 const initialState: SpecsState = {
-  var: InkVarSpec,
+  var: VariableSpec,
 };
 
 const componentsReducer = (

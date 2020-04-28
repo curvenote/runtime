@@ -9,7 +9,7 @@ import { DEFAULT_SCOPE } from '../../constants';
 import { ComponentShortcut } from '../shortcuts';
 
 const store = createStore(
-  combineReducers({ ink: combineReducers({ components: reducer, specs: specReducer }) }),
+  combineReducers({ runtime: combineReducers({ components: reducer, specs: specReducer }) }),
   applyMiddleware(
     thunkMiddleware,
   ),

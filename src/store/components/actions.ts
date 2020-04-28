@@ -36,7 +36,7 @@ export function removeComponent(id: string): ComponentActionTypes {
   };
 }
 
-function componentShortcut<T extends Record<string, VariableTypes>>(
+export function componentShortcut<T extends Record<string, VariableTypes>>(
   dispatch: Dispatch, getState: () => State, id: string,
 ): ComponentShortcut<T> {
   return {

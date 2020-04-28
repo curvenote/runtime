@@ -74,8 +74,8 @@ export interface Event {
 function evaluateEvent(state: State, event: Event, executionState: ExecutionState) {
   const { id, name, values } = event;
 
-  const component = state.ink.components[id];
-  const spec = state.ink.specs[component.spec].events[name];
+  const component = state.runtime.components[id];
+  const spec = state.runtime.specs[component.spec].events[name];
   const eventFunc = component.events[name].func;
 
   return {
@@ -119,7 +119,7 @@ export function dangerouslyEvaluateState(event?: Event): AppThunk<Results> {
     }
 
     // Append the derived variables
-    Object.entries(getState().ink.variables)
+    Object.entries(getState().runtime.variables)
       .filter(([, variable]) => variable.derived)
       .forEach(([id, variable]) => {
         const { scope, name } = variable;
@@ -132,7 +132,7 @@ export function dangerouslyEvaluateState(event?: Event): AppThunk<Results> {
       });
 
     // Evaluate the components
-    Object.entries(getState().ink.components)
+    Object.entries(getState().runtime.components)
       .forEach(([id, component]) => {
         const { scope, name } = component;
         const spec = getSpec(getState(), component.spec);

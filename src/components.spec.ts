@@ -15,7 +15,7 @@ const rangeEvents = {
 };
 
 const store = createStore(
-  combineReducers({ ink: reducer }),
+  combineReducers({ runtime: reducer }),
   applyMiddleware(
     thunkMiddleware,
     ink.triggerEvaluate,
@@ -81,8 +81,8 @@ describe('integration', () => {
     const state2 = range.component;
     expect(state1).toEqual(state2);
     expect(state1 === state2).toBe(true);
-    expect(store1.ink.variables === store2.ink.variables).toBe(true);
-    expect(store1.ink.components === store2.ink.components).toBe(true);
+    expect(store1.runtime.variables === store2.runtime.variables).toBe(true);
+    expect(store1.runtime.components === store2.runtime.components).toBe(true);
     range.set(
       { value: { func: 'x + 1' } },
     );

@@ -1,4 +1,4 @@
-import { isEqual } from 'underscore';
+import isEqual from 'lodash.isequal';
 import { Variable, CurrentValue } from './variables/types';
 import { ComponentProperty } from './components/types';
 

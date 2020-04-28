@@ -7,7 +7,7 @@ import { getSpec } from './selectors';
 import { Spec } from './types';
 
 const store = createStore(
-  combineReducers({ ink: combineReducers({ specs: reducer }) }),
+  combineReducers({ runtime: combineReducers({ specs: reducer }) }),
   applyMiddleware(
     thunkMiddleware,
   ),

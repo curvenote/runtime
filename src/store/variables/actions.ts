@@ -35,7 +35,7 @@ const createVariableOptionDefaults = {
   format: DEFAULT_FORMAT,
 };
 
-function variableShortcut<T extends VariableTypes>(
+export function variableShortcut<T extends VariableTypes>(
   dispatch: Dispatch, getState: () => State, id: string,
 ): VariableShortcut<T> {
   return {

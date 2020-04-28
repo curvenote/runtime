@@ -1,8 +1,8 @@
 import { SpecsState, Spec } from './types';
 
-type State = { ink: { specs: SpecsState } };
+type State = { runtime: { specs: SpecsState } };
 
 // eslint-disable-next-line import/prefer-default-export
 export const getSpec = (state: State, name: string): Spec | undefined => (
-  state.ink.specs[name] ?? undefined
+  state.runtime.specs[name] ?? undefined
 );

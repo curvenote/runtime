@@ -17,6 +17,7 @@ export function getSpecFromDefinition(specDefinition: DefineSpec): Spec {
           type: prop.type,
           default: prop.default,
           description: prop.description ?? '',
+          attribute: prop.attribute ?? name,
           args: prop.args ?? [],
           has: prop.has ?? { value: true, func: true },
         } as SpecProperty,
@@ -29,6 +30,7 @@ export function getSpecFromDefinition(specDefinition: DefineSpec): Spec {
         {
           name,
           args: evt.args ?? [],
+          attribute: evt.attribute ?? name,
         } as SpecEvent],
     ),
   };

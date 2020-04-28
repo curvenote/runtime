@@ -8,6 +8,7 @@ export interface SpecProperty {
   type: PropTypes;
   default: VariableTypes;
   args: string[];
+  attribute: string;
   has: {
     value: boolean;
     func: boolean;
@@ -17,6 +18,7 @@ export interface SpecProperty {
 export interface SpecEvent {
   name: string;
   args: string[];
+  attribute: string;
 }
 
 // type, default are required, name not included, all other optional
@@ -24,8 +26,11 @@ export type DefineSpecProperty = (
   Partial<Omit<SpecProperty, 'name' | 'type' | 'default'>> &
   Required<Pick<SpecProperty, 'type' | 'default'>>
 );
-// name not included
-export type DefineSpecEvent = Omit<SpecEvent, 'name'>;
+// name not included, args required
+export type DefineSpecEvent = (
+  Partial<Omit<SpecEvent, 'name' | 'args'>> &
+  Required<Pick<SpecProperty, 'args'>>
+);
 
 export interface DefineSpec {
   name: string;

@@ -1,21 +1,21 @@
 import * as store from './store';
 import * as utils from './utils';
 
-import InkVarSpec from './store/specs/varSpec';
+import VariableSpec from './store/specs/variableSpec';
 import provider, { setup } from './provider';
 
 export * from './store';
 export {
-  utils, InkVarSpec, provider, setup,
+  utils, VariableSpec, provider, setup,
 };
 export * from './constants';
 
-const inkStore = {
+const runtime = {
   ...store,
   utils,
-  InkVarSpec,
+  VariableSpec,
   provider,
   setup,
 };
 
-export default inkStore;
+export default runtime;

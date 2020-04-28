@@ -1,33 +1,33 @@
 # @iooxa/runtime
 
 [![Runtime on npm](https://img.shields.io/npm/v/@iooxa/runtime.svg)](https://www.npmjs.com/package/@iooxa/runtime)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ink-components/ink-components/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/iooxa/runtime/blob/master/LICENSE)
 
 
-The `runtime` package, designed to work with [ink](https://components.ink/), allows you to create variables and components that react to changes in state through **user-defined** functions. The runtime is a small component that can be used in other packages to keep the state of a document reactive.  The package is based on [Redux](https://redux.js.org/) which is compatible with many popular javascript frameworks (e.g. [React](https://reactjs.org/), [Vue](https://vuejs.org/), etc.).
+The `runtime` package allows you to create variables and components that react to changes in state through **user-defined** functions. The runtime is a small component that can be used in other packages to keep the state of a document reactive.  The package is based on [Redux](https://redux.js.org/) which is compatible with many popular javascript frameworks (e.g. [React](https://reactjs.org/), [Vue](https://vuejs.org/), etc.).
 
 ## Getting Started
 
-This package is not setup directly for use in a browser, you can use the [@iooxa/ink-basic](https://www.npmjs.com/package/@iooxa/ink-basic) package to see it in use. For use in other packages, node, etc. you can download the [latest release](https://www.npmjs.com/package/@iooxa/runtime) from NPM:
+This package is not setup directly for use in a browser, please see the [@iooxa/components](https://www.npmjs.com/package/@iooxa/components) package to see it in use. For use in other packages, node, etc. you can download the [latest release  from npm](https://www.npmjs.com/package/@iooxa/runtime):
 
 ```bash
 >> npm install @iooxa/runtime
 ```
 
-You should then be able to extend/integrate ink as you see fit:
+You should then be able to extend/integrate the `runtime` as you see fit:
 
 ```javascript
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import ink, { actions, reducer } from '@iooxa/runtime';
+import runtime, { actions, reducer } from '@iooxa/runtime';
 
 // Create a store
 const store = createStore(
-  combineReducers({ ink: reducer }),
+  combineReducers({ runtime: reducer }),
   applyMiddleware(
     thunkMiddleware,
-    ink.triggerEvaluate,
-    ink.dangerousEvaluatation,
+    runtime.triggerEvaluate,
+    runtime.dangerousEvaluatation,
   ),
 );
 ```
@@ -40,7 +40,7 @@ The basic state structure is:
 
 ```
 {
-  ink: {
+  runtime: {
     specs: {…},
     variables: {…},
     components: {…},
@@ -48,13 +48,13 @@ The basic state structure is:
 }
 ```
 
-Each of the sub-states, `{…}`, is a dictionary with uuid keys, to an object that represents a variable or a component.
+Each of the sub-states, `{…}`, is a dictionary with `uuid` keys, to an object that represents a `variable` or a `component`.
 
 * **specs**: the definition of components, including properties and events. The variable spec is the only component spec included by default.
 * **variables**: holds the state of named values (e.g. numbers, strings, etc.), they cannot have events (other than changing the value of the variable)
 * **components**: an object that holds the state of a component (e.g. a slider, equation, etc. or more complicated widget). Components have properties that can be defined as functions, as well as named events (e.g. click, change, etc.) that are defined within the spec.
 
-The state **must** be composed inside of an `ink` dictionary. This allows you to compose the ink runtime state inside of your larger application, if required.
+The state **must** be composed inside of an `runtime` dictionary. This allows you to compose the runtime state inside of your larger application, if required.
 
 ## Variables
 

@@ -5,10 +5,10 @@ import { forEachObject } from '../utils';
 import { getSpec } from '../specs/selectors';
 import { SpecsState } from '../specs/types';
 
-type State = { ink: { components: ComponentsState, specs: SpecsState } };
+type State = { runtime: { components: ComponentsState, specs: SpecsState } };
 
 export const getComponent = (state: State, id: string): Component | undefined => (
-  state.ink.components[id] ?? undefined
+  state.runtime.components[id] ?? undefined
 );
 
 export function getComponentState<T extends {}>(state: State, id: string): T {
