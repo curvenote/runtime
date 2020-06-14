@@ -60,4 +60,6 @@ const provider = {
   subscribe: (id: string | null, listener: () => void): Unsubscribe => subscribe(id, listener),
 };
 
+export type Provider = typeof provider;
+
 export default provider;

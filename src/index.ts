@@ -2,11 +2,11 @@ import * as store from './store';
 import * as utils from './utils';
 
 import VariableSpec from './store/specs/variableSpec';
-import provider, { setup } from './provider';
+import provider, { setup, Provider } from './provider';
 
 export * from './store';
 export {
-  utils, VariableSpec, provider, setup,
+  utils, VariableSpec, provider, Provider, setup,
 };
 export * from './constants';
 
