@@ -86,7 +86,6 @@ function evaluateEvent(state: State, event: Event, executionState: ExecutionStat
   };
 }
 
-
 export function dangerouslyEvaluateState(event?: Event): AppThunk<Results> {
   return (dispatch, getState) => {
     // These are the variables that will be returned

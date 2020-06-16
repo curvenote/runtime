@@ -26,7 +26,6 @@ export function convertValue(value: VariableTypes, type: PropTypes): VariableTyp
   }
 }
 
-
 export function includeCurrentValue<T extends {
   value: VariableTypes;
   func: string;

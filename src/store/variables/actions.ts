@@ -96,7 +96,6 @@ export function updateVariable<T extends VariableTypes>(
   };
 }
 
-
 // This is to be consistent with the component setter
 export function updateVariableProperties<T extends VariableTypes>(
   id: string,

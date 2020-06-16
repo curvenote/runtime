@@ -10,7 +10,6 @@ import { AppThunk } from '../types';
 import { getSpec } from './selectors';
 import { getSpecFromDefinition } from './utils';
 
-
 export function defineSpec(spec: Spec): SpecActionTypes {
   return {
     type: DEFINE_SPEC,

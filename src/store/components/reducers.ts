@@ -27,7 +27,6 @@ const includeCurrentValueInProps = (
   })
 );
 
-
 const componentsReducer = (
   state: ComponentsState = initialState,
   action: ComponentActionTypes,

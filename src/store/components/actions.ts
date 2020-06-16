@@ -109,7 +109,6 @@ function processPropertiesAndEvents<T extends Record<string, VariableTypes>>(
   return { props, evts };
 }
 
-
 export function createComponent<T extends Record<string, VariableTypes>>(
   specName: string,
   properties: {
