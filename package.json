@@ -1,6 +1,6 @@
 {
   "name": "@iooxa/runtime",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Runtime for @iooxa/components, evaluate a reactive state for components.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
