@@ -4,7 +4,7 @@
 [![Runtime on npm](https://img.shields.io/npm/v/@iooxa/runtime.svg)](https://www.npmjs.com/package/@iooxa/runtime)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/iooxa/runtime/blob/master/LICENSE)
 [![Documentation](https://img.shields.io/badge/iooxa.dev-Docs-green)](https://iooxa.dev)
-[![Tests Passing](https://action-badges.now.sh/iooxa/editor?action=CI)](https://github.com/iooxa/editor/actions?query=workflow%3ACI)
+![CI](https://github.com/iooxa/runtime/workflows/CI/badge.svg)
 
 The `runtime` package allows you to create variables and components that react to changes in state through **user-defined** functions. The runtime is a small component that can be used in other packages to keep the state of a document reactive.  The package is based on [Redux](https://redux.js.org/) which is compatible with many popular javascript frameworks (e.g. [React](https://reactjs.org/), [Vue](https://vuejs.org/), etc.).
 
