@@ -7,10 +7,10 @@ import { compareDefine as compareProperty } from '../utils';
 export function compareComponentDefine(prev: Component, next: Component) {
   const one = { ...prev };
   const two = { ...next };
-  delete one.properties;
-  delete two.properties;
-  delete one.events;
-  delete two.events;
+  delete (one as any).properties;
+  delete (two as any).properties;
+  delete (one as any).events;
+  delete (two as any).events;
   if (!isEqual(one, two)) return false;
   const allSame = { current: true };
   Object.entries(prev.properties).forEach(([key, prevProp]) => {

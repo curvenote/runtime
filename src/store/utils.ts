@@ -15,8 +15,8 @@ export function compareDefine(
 ) {
   const one = { ...prev };
   const two = { ...next };
-  delete one.current;
-  delete two.current;
+  delete (one as any).current;
+  delete (two as any).current;
   delete one.error;
   delete two.error;
   return isEqual(one, two);

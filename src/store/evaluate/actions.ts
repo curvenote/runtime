@@ -31,7 +31,7 @@ export function getEvaluationFunction(
         return ( ${funcString} );
       };
     `;
-  // eslint-disable-next-line no-new-func
+  // eslint-disable-next-line @typescript-eslint/no-implied-eval
   const func = Function('$variables', '$scope', evalString);
   return func;
 }
