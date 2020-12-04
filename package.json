@@ -10,6 +10,9 @@
     "writing",
     "redux"
   ],
+  "files": [
+    "dist"
+  ],
   "author": "rowanc1",
   "license": "MIT",
   "publishConfig": {
