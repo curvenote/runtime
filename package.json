@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/curvenote/runtime/issues"
   },
-  "homepage": "https://curvenote.dev",
+  "homepage": "https://curvenote.dev/runtime",
   "scripts": {
     "test": "jest",
     "lint": "eslint \"src/**/*.ts\" -c .eslintrc.json",
