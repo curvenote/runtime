@@ -17,7 +17,7 @@ class Ref<T = Store> {
 
 const storeRef = new Ref();
 
-const subscriptions: {[index: string]: {id: string | null, listener:()=>void}} = {};
+const subscriptions: { [index: string]: { id: string | null, listener:()=>void } } = {};
 
 function subscribe(id: string | null, listener: () => void): Unsubscribe {
   const key = uuid();

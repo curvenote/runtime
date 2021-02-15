@@ -54,7 +54,7 @@ export interface CreateComponentAction {
 
 export interface RemoveComponentAction {
   type: typeof REMOVE_COMPONENT;
-  payload: {id: string};
+  payload: { id: string };
 }
 
 export type ComponentActionTypes = (

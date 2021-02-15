@@ -48,7 +48,7 @@ export function unpackCurrent<T>(state: T, current: ValueOrError): T {
 
 export function getScopeAndName(
   scopeAndName: string, defaultScope: string = DEFAULT_SCOPE,
-): {scope: string, name: string} {
+): { scope: string, name: string } {
   const split = scopeAndName.split('.');
   if (split.length === 1) {
     return { scope: defaultScope, name: split[0] };
