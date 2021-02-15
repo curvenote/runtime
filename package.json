@@ -1,7 +1,7 @@
 {
-  "name": "@iooxa/runtime",
+  "name": "@curvenote/runtime",
   "version": "0.2.7",
-  "description": "Runtime for @iooxa/components, evaluate a reactive state for components.",
+  "description": "Runtime for @curvenote/components, evaluate a reactive state for components.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [
@@ -18,16 +18,20 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/curvenote/runtime.git"
+  },
+  "bugs": {
+    "url": "https://github.com/curvenote/runtime/issues"
+  },
+  "homepage": "https://curvenote.dev",
   "scripts": {
     "test": "jest",
     "lint": "eslint \"src/**/*.ts\" -c .eslintrc.json",
     "clean": "rm -rf dist",
     "build": "tsc",
     "prepublishOnly": "yarn run clean; yarn run build;"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/iooxa/runtime.git"
   },
   "devDependencies": {
     "@types/jest": "^26.0.16",
@@ -51,9 +55,5 @@
     "redux-thunk": "^2.3.0",
     "uuid": "^8.3.1"
   },
-  "bugs": {
-    "url": "https://github.com/iooxa/runtime/issues"
-  },
-  "homepage": "https://iooxa.dev",
   "sideEffects": false
 }
