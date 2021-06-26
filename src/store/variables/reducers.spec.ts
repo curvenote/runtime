@@ -11,16 +11,19 @@ describe('Variables reducer', () => {
 
   it('should create a variable', () => {
     expect(
-      reducer(initialState, actions.defineVariable({
-        id: 'RANDOM-ID',
-        scope: 'myScope',
-        name: 'myVar',
-        description: '',
-        type: PropTypes.number,
-        value: 42,
-        func: '',
-        format: '.2f',
-      })),
+      reducer(
+        initialState,
+        actions.defineVariable({
+          id: 'RANDOM-ID',
+          scope: 'myScope',
+          name: 'myVar',
+          description: '',
+          type: PropTypes.number,
+          value: 42,
+          func: '',
+          format: '.2f',
+        }),
+      ),
     ).toEqual({
       'RANDOM-ID': {
         id: 'RANDOM-ID',
@@ -39,16 +42,19 @@ describe('Variables reducer', () => {
 
   it('should not evaluate the variable', () => {
     expect(
-      reducer(initialState, actions.defineVariable({
-        id: 'RANDOM-ID',
-        scope: 'myScope',
-        name: 'myVar',
-        description: '',
-        type: PropTypes.number,
-        value: null,
-        func: '1 + 1',
-        format: '.2f',
-      })),
+      reducer(
+        initialState,
+        actions.defineVariable({
+          id: 'RANDOM-ID',
+          scope: 'myScope',
+          name: 'myVar',
+          description: '',
+          type: PropTypes.number,
+          value: null,
+          func: '1 + 1',
+          format: '.2f',
+        }),
+      ),
     ).toEqual({
       'RANDOM-ID': {
         id: 'RANDOM-ID',

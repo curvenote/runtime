@@ -1,5 +1,8 @@
 import {
-  Component, PartialProps, ComponentEvent, UpdateComponentOptionDefaults,
+  Component,
+  PartialProps,
+  ComponentEvent,
+  UpdateComponentOptionDefaults,
 } from './components/types';
 import { VariableTypes, UpdateVariableOptions, Variable } from './variables/types';
 
@@ -10,9 +13,7 @@ export interface Shortcut<T> {
   readonly state: T;
   readonly component: Component | undefined;
   remove: () => void;
-  setProperties: (
-    properties: Record<string, PartialProps | VariableShortcut<any>>,
-  ) => Shortcut<T>
+  setProperties: (properties: Record<string, PartialProps | VariableShortcut<any>>) => Shortcut<T>;
 }
 
 export interface VariableShortcut<V extends VariableTypes = VariableTypes>
@@ -32,6 +33,6 @@ export interface ComponentShortcut<T> extends Shortcut<T> {
     properties: Record<string, PartialProps | VariableShortcut<any>>,
     events?: Record<string, Omit<ComponentEvent, 'name'>>,
     options?: Partial<UpdateComponentOptionDefaults>,
-  ) => ComponentShortcut<T>,
+  ) => ComponentShortcut<T>;
   dispatchEvent(name: string, values?: VariableTypes[]): void;
 }

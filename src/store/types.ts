@@ -1,9 +1,4 @@
-import {
-  Store as RStore,
-  Middleware as RMiddleware,
-  Reducer as RReducer,
-  Action,
-} from 'redux';
+import { Store as RStore, Middleware as RMiddleware, Reducer as RReducer, Action } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { VariablesState, VariablesActionTypes } from './variables/types';
@@ -22,18 +17,22 @@ export interface State {
     specs: SpecsState;
     variables: VariablesState;
     components: ComponentsState;
-  }
+  };
 }
 
-export type Actions = (
-  VariablesActionTypes |
-  ComponentActionTypes |
-  SpecActionTypes |
-  CommunicationActionTypes
-);
+export type Actions =
+  | VariablesActionTypes
+  | ComponentActionTypes
+  | SpecActionTypes
+  | CommunicationActionTypes;
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, State, null, Action<Actions['type']>>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  State,
+  null,
+  Action<Actions['type']>
+>;
 export type Dispatch = ThunkDispatch<State, null, Action<Actions['type']>>;
-export type Store = RStore<State, Actions> & { dispatch: Dispatch; };
+export type Store = RStore<State, Actions> & { dispatch: Dispatch };
 export type Middleware = RMiddleware<{}, State, Dispatch>;
 export type Reducer = RReducer<State, Actions>;

@@ -5,9 +5,7 @@ import VariableSpec from './store/specs/variableSpec';
 import provider, { setup, Provider } from './provider';
 
 export * from './store';
-export {
-  utils, VariableSpec, provider, Provider, setup,
-};
+export { utils, VariableSpec, provider, Provider, setup };
 export * from './constants';
 
 const runtime = {

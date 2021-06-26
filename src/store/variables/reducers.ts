@@ -1,12 +1,6 @@
-import {
-  VariablesState,
-  VariablesActionTypes,
-  DEFINE_VARIABLE, REMOVE_VARIABLE,
-} from './types';
+import { VariablesState, VariablesActionTypes, DEFINE_VARIABLE, REMOVE_VARIABLE } from './types';
 import { RETURN_RESULTS } from '../comms/types';
-import {
-  includeCurrentValue, testScopeAndName, unpackCurrent,
-} from './utils';
+import { includeCurrentValue, testScopeAndName, unpackCurrent } from './utils';
 import { compareDefine, compareEval } from '../utils';
 
 const initialState: VariablesState = {};

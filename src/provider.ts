@@ -17,7 +17,7 @@ class Ref<T = Store> {
 
 const storeRef = new Ref();
 
-const subscriptions: { [index: string]: { id: string | null, listener:()=>void } } = {};
+const subscriptions: { [index: string]: { id: string | null; listener: () => void } } = {};
 
 function subscribe(id: string | null, listener: () => void): Unsubscribe {
   const key = uuid();
@@ -31,9 +31,10 @@ function notify(store: Store) {
   const rState = store.getState().runtime;
   currentState = { variables: rState.variables, components: rState.components };
   if (
-    previousState.variables === currentState.variables
-    && previousState.components === currentState.components
-  ) return;
+    previousState.variables === currentState.variables &&
+    previousState.components === currentState.components
+  )
+    return;
   Object.keys(subscriptions).forEach((key: string) => {
     const { id, listener } = subscriptions[key];
     if (id == null) {
@@ -55,8 +56,12 @@ export function setup(store: Store) {
 }
 
 const provider = {
-  get getState() { return storeRef.current.getState; },
-  get dispatch() { return storeRef.current.dispatch; },
+  get getState() {
+    return storeRef.current.getState;
+  },
+  get dispatch() {
+    return storeRef.current.dispatch;
+  },
   subscribe: (id: string | null, listener: () => void): Unsubscribe => subscribe(id, listener),
 };
 

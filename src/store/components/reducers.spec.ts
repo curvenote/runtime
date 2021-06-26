@@ -10,9 +10,7 @@ import { ComponentShortcut } from '../shortcuts';
 
 const store = createStore(
   combineReducers({ runtime: combineReducers({ components: reducer, specs: specReducer }) }),
-  applyMiddleware(
-    thunkMiddleware,
-  ),
+  applyMiddleware(thunkMiddleware),
 );
 
 const rangeProps = {
@@ -24,11 +22,7 @@ const rangeEvents = {
   change: { args: ['value'] },
 };
 
-store.dispatch(specActions.createSpec(
-  'range',
-  rangeProps,
-  rangeEvents,
-) as any);
+store.dispatch(specActions.createSpec('range', rangeProps, rangeEvents) as any);
 
 describe('Components reducer', () => {
   it('should create component', () => {
@@ -38,7 +32,9 @@ describe('Components reducer', () => {
     expect(() => store.dispatch(badRange as any)).toThrow();
     // The null max should likely throw?
     // TODO: The scope should be set rather than the var name.
-    const range = store.dispatch(actions.createComponent('range', { min: { value: 2 }, max: { value: null } }) as any) as ComponentShortcut<Record<keyof typeof rangeProps, number>>;
+    const range = store.dispatch(
+      actions.createComponent('range', { min: { value: 2 }, max: { value: null } }) as any,
+    ) as ComponentShortcut<Record<keyof typeof rangeProps, number>>;
 
     expect(range.scope).toBe(DEFAULT_SCOPE);
     expect(range.name).toBeNull();

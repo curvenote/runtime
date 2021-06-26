@@ -7,11 +7,7 @@ import reducer from './store/reducers';
 
 const store = createStore(
   combineReducers({ runtime: reducer }),
-  applyMiddleware(
-    thunkMiddleware,
-    runtime.triggerEvaluate,
-    runtime.dangerousEvaluatation,
-  ),
+  applyMiddleware(thunkMiddleware, runtime.triggerEvaluate, runtime.dangerousEvaluatation),
 ) as types.Store;
 
 describe('integration', () => {

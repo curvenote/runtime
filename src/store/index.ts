@@ -5,11 +5,4 @@ import reducer from './reducers';
 import triggerEvaluate from './middleware';
 import dangerousEvaluatation from './evaluate/middleware';
 
-export {
-  types,
-  actions,
-  selectors,
-  reducer,
-  triggerEvaluate,
-  dangerousEvaluatation,
-};
+export { types, actions, selectors, reducer, triggerEvaluate, dangerousEvaluatation };

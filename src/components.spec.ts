@@ -16,30 +16,24 @@ const rangeEvents = {
 
 const store = createStore(
   combineReducers({ runtime: reducer }),
-  applyMiddleware(
-    thunkMiddleware,
-    runtime.triggerEvaluate,
-    runtime.dangerousEvaluatation,
-  ),
+  applyMiddleware(thunkMiddleware, runtime.triggerEvaluate, runtime.dangerousEvaluatation),
 ) as types.Store;
 
-store.dispatch(actions.createSpec(
-  'range',
-  rangeProps,
-  rangeEvents,
-));
+store.dispatch(actions.createSpec('range', rangeProps, rangeEvents));
 
 describe('integration', () => {
   it('should evaluate the variable', () => {
     const x = store.dispatch(actions.createVariable('scope.x', 3));
     const max = store.dispatch(actions.createVariable('scope.max', 9));
     const otherMax = store.dispatch(actions.createVariable('scope.max2', 8));
-    const range = store.dispatch(actions.createComponent(
-      'range',
-      { value: { func: 'x' }, min: { value: 1 }, max },
-      { change: { func: '{x: value}' } },
-      { scope: 'scope' },
-    ));
+    const range = store.dispatch(
+      actions.createComponent(
+        'range',
+        { value: { func: 'x' }, min: { value: 1 }, max },
+        { change: { func: '{x: value}' } },
+        { scope: 'scope' },
+      ),
+    );
 
     expect(range.component?.properties.value.func).toBe('x');
     // You can set through the variable shortcut, which sets to a function
@@ -73,19 +67,14 @@ describe('integration', () => {
     const state1 = range.component;
     max.set(9);
     otherMax.set(8);
-    range.set(
-      { value: { func: 'x' }, max: otherMax },
-      { change: { func: '{x: value}' } },
-    );
+    range.set({ value: { func: 'x' }, max: otherMax }, { change: { func: '{x: value}' } });
     const store2 = store.getState();
     const state2 = range.component;
     expect(state1).toEqual(state2);
     expect(state1 === state2).toBe(true);
     expect(store1.runtime.variables === store2.runtime.variables).toBe(true);
     expect(store1.runtime.components === store2.runtime.components).toBe(true);
-    range.set(
-      { value: { func: 'x + 1' } },
-    );
+    range.set({ value: { func: 'x + 1' } });
     const state3 = range.component;
     // Just to be sure it isn't giving back the same thing!
     expect(state1 === state3).toBe(false);
@@ -98,15 +87,17 @@ describe('integration', () => {
 
   it('should work with transforms', () => {
     const x = store.dispatch(actions.createVariable('test2.x', 3));
-    const range = store.dispatch(actions.createComponent(
-      'range',
-      {
-        value: { func: 'x' },
-        transform: { func: 'value == 0 ? "free" : value' },
-      },
-      { change: { func: '{x: value}' } },
-      { scope: 'test2' },
-    ));
+    const range = store.dispatch(
+      actions.createComponent(
+        'range',
+        {
+          value: { func: 'x' },
+          transform: { func: 'value == 0 ? "free" : value' },
+        },
+        { change: { func: '{x: value}' } },
+        { scope: 'test2' },
+      ),
+    );
     expect(range.state?.transform).toBe(x.get());
     x.set(0);
     expect(range.state?.transform).toBe('free');

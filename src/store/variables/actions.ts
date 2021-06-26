@@ -1,15 +1,15 @@
 import { v4 as uuid } from 'uuid';
 import {
-  DefineVariable, VariablesActionTypes,
+  DefineVariable,
+  VariablesActionTypes,
   VariableTypes,
-  DEFINE_VARIABLE, REMOVE_VARIABLE,
+  DEFINE_VARIABLE,
+  REMOVE_VARIABLE,
   PropTypes,
   UpdateVariableOptions,
   CreateVariableOptions,
 } from './types';
-import {
-  AppThunk, State, Dispatch, PartialProps,
-} from '../types';
+import { AppThunk, State, Dispatch, PartialProps } from '../types';
 import { getScopeAndName } from './utils';
 import { getVariable, getVariableState, getVariableAsComponent } from './selectors';
 import { DEFAULT_FORMAT } from '../../constants';
@@ -36,15 +36,29 @@ const createVariableOptionDefaults = {
 };
 
 export function variableShortcut<T extends VariableTypes>(
-  dispatch: Dispatch, getState: () => State, id: string,
+  dispatch: Dispatch,
+  getState: () => State,
+  id: string,
 ): VariableShortcut<T> {
   return {
-    get id() { return id; },
-    get scope() { return getVariable(getState(), id)?.scope; },
-    get name() { return getVariable(getState(), id)?.name; },
-    get state() { return getVariableState<T>(getState(), id); },
-    get component() { return getVariableAsComponent(getState(), id) ?? undefined; },
-    get variable() { return getVariable(getState(), id) ?? undefined; },
+    get id() {
+      return id;
+    },
+    get scope() {
+      return getVariable(getState(), id)?.scope;
+    },
+    get name() {
+      return getVariable(getState(), id)?.name;
+    },
+    get state() {
+      return getVariableState<T>(getState(), id);
+    },
+    get component() {
+      return getVariableAsComponent(getState(), id) ?? undefined;
+    },
+    get variable() {
+      return getVariable(getState(), id) ?? undefined;
+    },
     get: () => getVariable(getState(), id)?.current as T,
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     set: (value, func, options) => dispatch(updateVariable(id, value, func, options)),
@@ -67,9 +81,18 @@ export function createVariable(
       ...createVariableOptionDefaults,
       ...options,
     };
-    dispatch(defineVariable({
-      scope, name, value, func, description, type, format, id,
-    }));
+    dispatch(
+      defineVariable({
+        scope,
+        name,
+        value,
+        func,
+        description,
+        type,
+        format,
+        id,
+      }),
+    );
     return variableShortcut(dispatch, getState, id);
   };
 }
@@ -83,15 +106,22 @@ export function updateVariable<T extends VariableTypes>(
   return (dispatch, getState) => {
     const variable = getVariable(getState(), id);
     if (variable == null) throw new Error('Variable does not exist.');
-    const {
-      scope, name, description, type, format,
-    } = {
+    const { scope, name, description, type, format } = {
       ...variable,
       ...options,
     };
-    dispatch(defineVariable({
-      scope, name, value, func, description, type, format, id,
-    }));
+    dispatch(
+      defineVariable({
+        scope,
+        name,
+        value,
+        func,
+        description,
+        type,
+        format,
+        id,
+      }),
+    );
     return variableShortcut(dispatch, getState, id);
   };
 }
@@ -126,9 +156,18 @@ export function updateVariableProperties<T extends VariableTypes>(
     const type = (pType?.value ?? variable.type) as PropTypes;
     const format = (pFormat?.value ?? variable.format) as string;
 
-    dispatch(defineVariable({
-      scope, name, value, func, description, type, format, id,
-    }));
+    dispatch(
+      defineVariable({
+        scope,
+        name,
+        value,
+        func,
+        description,
+        type,
+        format,
+        id,
+      }),
+    );
     return variableShortcut(dispatch, getState, id);
   };
 }

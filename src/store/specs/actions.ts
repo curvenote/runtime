@@ -29,7 +29,10 @@ export function createSpec(
       dispatch(defineSpec(spec));
     } else {
       const spec = getSpecFromDefinition({
-        name, properties, events, description,
+        name,
+        properties,
+        events,
+        description,
       } as DefineSpec);
       dispatch(defineSpec(spec));
     }

@@ -5,24 +5,22 @@ import { Middleware } from './types';
 import { DEFINE_COMPONENT, REMOVE_COMPONENT } from './components/types';
 import { DEFINE_SPEC } from './specs/types';
 
-const triggerEvaluate: Middleware = (
-  (store) => (next) => (action) => {
-    const result = next(action);
-    switch (action.type) {
-      case DEFINE_VARIABLE:
-      case REMOVE_VARIABLE:
-      case DEFINE_SPEC:
-      case DEFINE_COMPONENT:
-      case REMOVE_COMPONENT: {
-        const id = uuid();
-        store.dispatch(evaluate(id));
-        break;
-      }
-      default:
-        break;
+const triggerEvaluate: Middleware = (store) => (next) => (action) => {
+  const result = next(action);
+  switch (action.type) {
+    case DEFINE_VARIABLE:
+    case REMOVE_VARIABLE:
+    case DEFINE_SPEC:
+    case DEFINE_COMPONENT:
+    case REMOVE_COMPONENT: {
+      const id = uuid();
+      store.dispatch(evaluate(id));
+      break;
     }
-    return result;
+    default:
+      break;
   }
-);
+  return result;
+};
 
 export default triggerEvaluate;

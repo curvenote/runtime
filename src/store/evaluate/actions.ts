@@ -1,8 +1,4 @@
-import {
-  ValueOrError,
-  EvaluationErrorTypes,
-  Results,
-} from '../comms/types';
+import { ValueOrError, EvaluationErrorTypes, Results } from '../comms/types';
 import { getExecutionState } from './selectors';
 import { AppThunk, State } from '../types';
 import { VariableTypes } from '../variables/types';
@@ -19,10 +15,11 @@ export function getEvaluationFunction(
   argNames: string[] = [],
 ) {
   const currentKeys = Object.keys(executionState[scopeName] ?? {});
-  const extractScope = currentKeys.length > 0
-    ? `
+  const extractScope =
+    currentKeys.length > 0
+      ? `
       const { ${currentKeys.join(', ')} } = $variables[$scope];`
-    : '';
+      : '';
 
   const evalString = `
       "use strict";${extractScope}
@@ -81,7 +78,11 @@ function evaluateEvent(state: State, event: Event, executionState: ExecutionStat
   return {
     scope: component.scope,
     result: dangerouslyEvaluateVariable(
-      component.scope, eventFunc, executionState, spec.args, values,
+      component.scope,
+      eventFunc,
+      executionState,
+      spec.args,
+      values,
     ),
   };
 }
@@ -131,28 +132,31 @@ export function dangerouslyEvaluateState(event?: Event): AppThunk<Results> {
       });
 
     // Evaluate the components
-    Object.entries(getState().runtime.components)
-      .forEach(([id, component]) => {
-        const { scope, name } = component;
-        const spec = getSpec(getState(), component.spec);
-        results.components[id] = {};
-        Object.entries(component.properties)
-          // only the derived properties
-          .filter(([, prop]) => prop.derived)
-          .forEach(([propName, prop]) => {
-            // Add any values defined on the spec
-            const args = spec?.properties[propName].args ?? [];
-            const values = args.map((arg) => results.components[id]?.[arg]?.value);
-            const result = dangerouslyEvaluateVariable(
-              scope, prop.func, executionState, args, values,
-            );
-            results.components[id][propName] = result;
-            if (result.error) return;
-            if (name) {
-              executionState[scope][name][propName] = result.value;
-            }
-          });
-      });
+    Object.entries(getState().runtime.components).forEach(([id, component]) => {
+      const { scope, name } = component;
+      const spec = getSpec(getState(), component.spec);
+      results.components[id] = {};
+      Object.entries(component.properties)
+        // only the derived properties
+        .filter(([, prop]) => prop.derived)
+        .forEach(([propName, prop]) => {
+          // Add any values defined on the spec
+          const args = spec?.properties[propName].args ?? [];
+          const values = args.map((arg) => results.components[id]?.[arg]?.value);
+          const result = dangerouslyEvaluateVariable(
+            scope,
+            prop.func,
+            executionState,
+            args,
+            values,
+          );
+          results.components[id][propName] = result;
+          if (result.error) return;
+          if (name) {
+            executionState[scope][name][propName] = result.value;
+          }
+        });
+    });
 
     return results;
   };
