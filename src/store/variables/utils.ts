@@ -1,14 +1,12 @@
 import { DEFAULT_SCOPE } from '../../constants';
-import {
-  VariableTypes, PropTypes, CurrentValue,
-} from './types';
+import { VariableTypes, PropTypes, CurrentValue } from './types';
 import { ValueOrError } from '../comms/types';
 
 export function convertValue(value: VariableTypes, type: PropTypes): VariableTypes {
   switch (type) {
     case PropTypes.boolean:
       // eslint-disable-next-line no-nested-ternary
-      return value === 'true' ? true : (value === 'false' ? false : Boolean(value));
+      return value === 'true' ? true : value === 'false' ? false : Boolean(value);
     case PropTypes.number:
       return Number(value);
     case PropTypes.string:
@@ -26,10 +24,12 @@ export function convertValue(value: VariableTypes, type: PropTypes): VariableTyp
   }
 }
 
-export function includeCurrentValue<T extends {
-  value: VariableTypes;
-  func: string;
-}>(obj: T, type: PropTypes, current?: VariableTypes): T & CurrentValue {
+export function includeCurrentValue<
+  T extends {
+    value: VariableTypes;
+    func: string;
+  },
+>(obj: T, type: PropTypes, current?: VariableTypes): T & CurrentValue {
   const derived = obj.func !== '';
   return {
     ...obj,
@@ -47,8 +47,9 @@ export function unpackCurrent<T>(state: T, current: ValueOrError): T {
 }
 
 export function getScopeAndName(
-  scopeAndName: string, defaultScope: string = DEFAULT_SCOPE,
-): { scope: string, name: string } {
+  scopeAndName: string,
+  defaultScope: string = DEFAULT_SCOPE,
+): { scope: string; name: string } {
   const split = scopeAndName.split('.');
   if (split.length === 1) {
     return { scope: defaultScope, name: split[0] };

@@ -1,6 +1,4 @@
-import {
-  VariableTypes, CurrentValue,
-} from '../variables/types';
+import { VariableTypes, CurrentValue } from '../variables/types';
 import { CommunicationActionTypes } from '../comms/types';
 import { Spec } from '../specs/types';
 
@@ -30,7 +28,9 @@ export interface Component {
   properties: Record<string, ComponentProperty>;
   events: Record<string, ComponentEvent>;
 }
-export type DefineComponent = Omit<Component, 'properties'> & { properties: Record<string, DefineComponentProperty> };
+export type DefineComponent = Omit<Component, 'properties'> & {
+  properties: Record<string, DefineComponentProperty>;
+};
 
 export type ComponentsState = Record<string, Component>;
 
@@ -57,14 +57,13 @@ export interface RemoveComponentAction {
   payload: { id: string };
 }
 
-export type ComponentActionTypes = (
-  CreateComponentAction |
-  RemoveComponentAction |
-  ComponentEventAction |
-  CommunicationActionTypes
-);
+export type ComponentActionTypes =
+  | CreateComponentAction
+  | RemoveComponentAction
+  | ComponentEventAction
+  | CommunicationActionTypes;
 
-export interface CreateComponentOptionDefaults{
+export interface CreateComponentOptionDefaults {
   scope: string;
   name: string | null;
   description: string;

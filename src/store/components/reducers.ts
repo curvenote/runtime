@@ -1,8 +1,10 @@
 import {
   ComponentsState,
   ComponentActionTypes,
-  DefineComponentProperty, ComponentProperty,
-  DEFINE_COMPONENT, REMOVE_COMPONENT,
+  DefineComponentProperty,
+  ComponentProperty,
+  DEFINE_COMPONENT,
+  REMOVE_COMPONENT,
 } from './types';
 import { Spec } from '../specs/types';
 import { RETURN_RESULTS } from '../comms/types';
@@ -15,17 +17,13 @@ const initialState: ComponentsState = {};
 const includeCurrentValueInProps = (
   props: Record<string, DefineComponentProperty>,
   spec: Spec,
-): Record<string, ComponentProperty> => (
+): Record<string, ComponentProperty> =>
   forEachObject(spec.properties, ([propName, propSpec]) => {
     const prop = {
       ...props[propName],
     };
-    return [
-      propName,
-      { ...includeCurrentValue(prop, propSpec.type) },
-    ];
-  })
-);
+    return [propName, { ...includeCurrentValue(prop, propSpec.type) }];
+  });
 
 const componentsReducer = (
   state: ComponentsState = initialState,

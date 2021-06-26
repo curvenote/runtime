@@ -3,9 +3,7 @@ import { getComponentState } from '../components/selectors';
 import { ExecutionState } from './types';
 
 // eslint-disable-next-line import/prefer-default-export
-export function getExecutionState(
-  state: State,
-): ExecutionState {
+export function getExecutionState(state: State): ExecutionState {
   const executionState: ExecutionState = {};
   // Get the variables (derived and constants)
   Object.entries(state.runtime.variables).forEach(([, { scope, name, current }]) => {

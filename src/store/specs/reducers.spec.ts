@@ -8,9 +8,7 @@ import { Spec } from './types';
 
 const store = createStore(
   combineReducers({ runtime: combineReducers({ specs: reducer }) }),
-  applyMiddleware(
-    thunkMiddleware,
-  ),
+  applyMiddleware(thunkMiddleware),
 );
 
 const properties = {
@@ -25,11 +23,7 @@ const events = {
 
 describe('Specs reducer', () => {
   it('should create component specs', () => {
-    const test1 = store.dispatch(actions.createSpec(
-      'test1',
-      properties,
-      events,
-    ) as any) as Spec;
+    const test1 = store.dispatch(actions.createSpec('test1', properties, events) as any) as Spec;
 
     const test1State = getSpec(store.getState(), 'test1');
     expect(test1State).toBeTruthy();
@@ -39,11 +33,13 @@ describe('Specs reducer', () => {
     expect(test1.properties.something).toBeUndefined();
   });
   it('should create component specs from object', () => {
-    const test2 = store.dispatch(actions.createSpec({
-      name: 'test2',
-      properties,
-      events,
-    }) as any) as Spec;
+    const test2 = store.dispatch(
+      actions.createSpec({
+        name: 'test2',
+        properties,
+        events,
+      }) as any,
+    ) as Spec;
 
     const test2State = getSpec(store.getState(), 'test2');
     expect(test2State).toBeTruthy();

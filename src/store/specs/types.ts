@@ -22,15 +22,11 @@ export interface SpecEvent {
 }
 
 // type, default are required, name not included, all other optional
-export type DefineSpecProperty = (
-  Partial<Omit<SpecProperty, 'name' | 'type' | 'default'>> &
-  Required<Pick<SpecProperty, 'type' | 'default'>>
-);
+export type DefineSpecProperty = Partial<Omit<SpecProperty, 'name' | 'type' | 'default'>> &
+  Required<Pick<SpecProperty, 'type' | 'default'>>;
 // name not included, args required
-export type DefineSpecEvent = (
-  Partial<Omit<SpecEvent, 'name' | 'args'>> &
-  Required<Pick<SpecProperty, 'args'>>
-);
+export type DefineSpecEvent = Partial<Omit<SpecEvent, 'name' | 'args'>> &
+  Required<Pick<SpecProperty, 'args'>>;
 
 export interface DefineSpec {
   name: string;
@@ -39,7 +35,7 @@ export interface DefineSpec {
   description?: string;
 }
 
-export interface Spec{
+export interface Spec {
   name: string;
   description: string;
   properties: Record<string, SpecProperty>;
@@ -53,6 +49,4 @@ export interface CreateSpecAction {
   payload: Spec;
 }
 
-export type SpecActionTypes = (
-  CreateSpecAction
-);
+export type SpecActionTypes = CreateSpecAction;

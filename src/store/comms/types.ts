@@ -12,7 +12,7 @@ export type EvaluationError = {
   type: EvaluationErrorTypes;
 };
 
-export type ValueOrError = { value?: any, error?: EvaluationError };
+export type ValueOrError = { value?: any; error?: EvaluationError };
 
 export type Results = {
   variables: Record<string, ValueOrError>;
@@ -24,7 +24,7 @@ export interface Evaluate {
   type: typeof EVALUATE;
   payload: {
     id: string;
-  }
+  };
 }
 
 export interface ReturnResults {
@@ -32,10 +32,7 @@ export interface ReturnResults {
   payload: {
     id: string;
     results: Results;
-  }
+  };
 }
 
-export type CommunicationActionTypes = (
-  Evaluate |
-  ReturnResults
-);
+export type CommunicationActionTypes = Evaluate | ReturnResults;
