@@ -1,6 +1,6 @@
 {
   "name": "@curvenote/runtime",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Runtime for @curvenote/components, evaluate a reactive state for components.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
