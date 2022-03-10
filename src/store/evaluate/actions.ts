@@ -46,8 +46,13 @@ export function dangerouslyEvaluateVariable(
     // TODO: could potentially clone the executionState?
     derived = func(executionState, scopeName)(...argValues);
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(
+      `Error in dangerouslyEvaluateVariable - check components binding to function in scope:${scopeName}`,
+      error,
+    );
     return {
-      error: { message: error, type: EvaluationErrorTypes.evaluation },
+      error: { message: (error as Error).message, type: EvaluationErrorTypes.evaluation },
     };
   }
   if (derived === undefined) {
@@ -56,8 +61,10 @@ export function dangerouslyEvaluateVariable(
   try {
     return { value: serialize(derived) };
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('dangerouslyEvaluateVariable - error while serializing', error);
     return {
-      error: { message: error, type: EvaluationErrorTypes.serialize },
+      error: { message: (error as Error).message, type: EvaluationErrorTypes.serialize },
     };
   }
 }
